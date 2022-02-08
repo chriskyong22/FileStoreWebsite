@@ -1,0 +1,122 @@
+$fonts: Helvetica;
+$font-color: black;
+
+@mixin Flex-Container($direction: row, $gap: 0.15rem) {
+    display: flex;
+    flex-direction: $direction;
+    gap: $gap;
+}
+
+.ListContainer {
+    @include Flex-Container();
+    box-sizing: border-box;
+}
+
+.ListItemContainer {
+
+    flex: 0 0 33%;
+
+    @include Flex-Container();
+    box-sizing: border-box;
+    overflow: auto;
+}
+
+.ListItemHeader {
+    @include Flex-Container($direction: column);
+}
+
+.ListItemFooter {
+    @include Flex-Container($direction: column);
+}
+
+
+@mixin InfoMessage($bg-color: red, $font-color: white) {
+    background-color: $bg-color;
+    color: $font-color;
+    width: fit-content;
+    padding: 0.25rem 1rem;
+    border-radius: 2rem;
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    z-index: 9;
+}
+
+.Success {
+    @include InfoMessage(rgb(28, 211, 28));
+}
+
+.Failure {
+    @include InfoMessage(rgb(218, 54, 54));
+}
+
+.Warning {
+    @include InfoMessage(rgb(221, 221, 46));
+}
+
+
+@mixin FormPopUp() {
+    bottom: 1rem;
+    right: 1rem;
+    position: fixed;
+    z-index: 6;
+}
+
+.FormOpenButton {
+    @include FormPopUp();
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+  
+    background-color: #555;
+    color: white;
+  
+    box-sizing: border-box;
+    padding: 0.5rem 1rem;
+    opacity: 0.8;
+    border: none;
+    cursor: pointer;
+}
+
+.FormPopup {
+    @include FormPopUp();
+    z-index: 8;
+    box-sizing: border-box;
+    border: 3px solid #f1f1f1;
+}
+
+.FormContainer {
+    @include Flex-Container($direction: column, $gap: 0.5rem);
+    max-width: 11rem;
+    padding: 0.5rem 1rem;
+    margin: 0rem auto;
+}
+
+.FormContainer input {
+    padding: 0.2rem;
+    box-sizing: border-box;
+    outline: none;
+    margin: 0;
+    width: 100%;
+    
+}
+
+.FormContainer button {
+    border: none;
+    box-sizing: border-box;
+    width: 100%;
+    
+    padding: 0.5rem 0.5rem;
+    opacity: 0.8;
+
+    cursor: pointer;
+    color: white;
+}
+
+.FormSubmit {
+    background-color: #04AA6D;
+}
+  
+.FormCancel {
+    background-color: red;
+}

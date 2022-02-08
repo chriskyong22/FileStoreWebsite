@@ -1,0 +1,23 @@
+Backend:
+1) Store all files in a folder.
+2) Ability to get a list of all the files in the folder (from client)
+3) GET command to get a specific file (created by UUID or hash)
+	3a) Hash -> uploading same file -> same file stored so no waste. 
+3) GET command to get a list of files 
+4) Ability to store file(s) to the folder (from the client)
+
+Unknown:
+Ability to delete a specific file 
+
+Using: Node.js or GO
+
+Frontend:
+1) Ability to upload file(s) in a folder 
+2) Ability to download file 
+3) Ability to download file(s)
+4) Ability to get a list of files 
+
+Unknown:
+5) Ability to delete a specific file?
+
+Using: React
