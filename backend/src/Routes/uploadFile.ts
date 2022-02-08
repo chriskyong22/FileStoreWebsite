@@ -12,18 +12,13 @@ router.post('/', uploadPath.single('file'), async (req: express.Request, res: ex
     const description = req.body.description;
     const file = req.file;
     if (file) {
-        console.log(file.filename);
         getFileHash(file.path).then((hash) => {
-            console.log(file.path);
-            console.log(file.originalname);
             let hashString: string = hash + "";
-            storeInDB(file.path, file.originalname, title, description, hashString).then((result) => {
-                console.log(`${hash} ${title} ${description}`);
-                console.log(result);
+            storeInDB(file.filename, file.originalname, title, description, hashString).then((_result) => {
                 getFilePath(hashString).then((path) => {
-                    if (path !== file.path) {
-                        fs.unlink(file.path).then((success) => {
-                            console.log(`Successfully removed ${success} ${file.path}`)
+                    if (path && path['path'] !== file.filename) {
+                        fs.unlink(file.path).then(() => {
+                            console.log(`Successfully removed ${file.path}`)
                         }).catch((error) => {
                             console.error(error);
                         })

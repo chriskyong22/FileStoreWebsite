@@ -7,6 +7,14 @@ const DATABASE_PATH = `${__dirname}\\DB\\${DATABASE}`
 const FilesTable = `FilesTable`
 const FileLocationTable = `FileLocationTable`
 
+export interface FileModel {
+    title: string;
+    description: string;
+    original_name: string;
+    hash: string;
+    id: string;
+}
+
 let db = new sqlite3.Database(DATABASE_PATH, sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE, (error) => {
     if (error) {
         console.error(DATABASE_PATH)
@@ -92,7 +100,7 @@ const runBatchAsync = (statements: string[][]) => {
 //     }, Promise.resolve());
 // };
 
-const get = async (query: string, ...params: string[]) => { 
+const get = async (query: string, ...params: string[]): Promise<any> => { 
     return new Promise((resolve, reject) => {
         db.get(query, params, (error, row) => {
             if (error) {
@@ -104,7 +112,7 @@ const get = async (query: string, ...params: string[]) => {
     })
 }
 
-const getAll = async (query: string, ...params: string[]) => { 
+const getAll = async (query: string, ...params: string[]): Promise<any> => { 
     return new Promise((resolve, reject) => {
         db.all(query, params, (error, rows) => {
             if (error) {
@@ -116,7 +124,7 @@ const getAll = async (query: string, ...params: string[]) => {
 }
 
 
-export const storeInDB = async (path: string, originalName: string, title: string, description: string, hash: string) => {
+export const storeInDB = async (filename: string, originalName: string, title: string, description: string, hash: string) => {
     let id = uuidv4();
     // Check database for hash
         // If hit, continue
@@ -131,13 +139,13 @@ export const storeInDB = async (path: string, originalName: string, title: strin
             // hash: string;
             // id: string;
     
-    let queries = [[`INSERT OR IGNORE INTO ${FileLocationTable}(hash, path) VALUES (?, ?)`, hash, path],
+    let queries = [[`INSERT OR IGNORE INTO ${FileLocationTable}(hash, path) VALUES (?, ?)`, hash, filename],
         [`INSERT OR IGNORE INTO ${FilesTable}(title, description, hash, originalName, id) VALUES (?, ?, ?, ?, ?)`, title, description, hash, originalName, id]]
     
     return runBatchAsync(queries)
 }
 
-export const getFilePath = (hash: string) => {
+export const getFilePath = (hash: string): Promise<undefined | {path: string}> => {
     let query = `
         SELECT path
         FROM ${FileLocationTable}
@@ -146,7 +154,7 @@ export const getFilePath = (hash: string) => {
     return get(query, hash)
 }
 
-export const getFileHash = (id: string) => {
+export const getFileHash = (id: string): Promise<undefined | {hash: string}> => {
     let query = `
         SELECT hash
         FROM ${FilesTable}
@@ -156,11 +164,11 @@ export const getFileHash = (id: string) => {
 }
 
 
-export const getAllFiles = () => {
+export const getAllFiles = (): Promise<[] | FileModel[]> => {
     let query = `SELECT * FROM ${FilesTable}`
     return getAll(query);
 }
-export const getAllFileLocations = () => {
+export const getAllFileLocations = (): Promise<[] | {path: string, hash: string}[]>  => {
     let query = `SELECT * FROM ${FileLocationTable}`
     return getAll(query);
 }
