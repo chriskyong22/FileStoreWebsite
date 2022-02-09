@@ -1,6 +1,10 @@
 $fonts: Helvetica;
 $font-color: black;
 
+.SmallFont {
+    font-size: 0.75rem;
+}
+
 @mixin Flex-Container($direction: row, $gap: 0.15rem) {
     display: flex;
     flex-direction: $direction;
@@ -10,20 +14,42 @@ $font-color: black;
 .ListContainer {
     @include Flex-Container();
     box-sizing: border-box;
+    flex-wrap: wrap;
 }
 
 .ListItemContainer {
 
     flex: 0 0 33%;
-
+    max-width: 300px;
     @include Flex-Container();
     box-sizing: border-box;
     overflow: auto;
-    background-color: rgb(235, 114, 114);
+    padding: 0.75rem;
+    border: 3px solid #f1f1f1;
 }
 
 .ListItemHeader {
     @include Flex-Container($direction: column);
+}
+
+.ListItemHeaderTitle {
+    color: rgb(218, 69, 69);
+}
+
+.ListItemHeaderButton { 
+    border: none;
+    outline: none;
+    width: 100%;
+    background-color:#04AA6D;
+    opacity: 0.8;
+    box-sizing: border-box;
+    padding: 0.25rem 0.5rem;
+    
+    color: white;
+}
+
+.ListItemHeaderButton:hover {
+    opacity: 1.0;
 }
 
 .ListItemFooter {
@@ -112,6 +138,10 @@ $font-color: black;
 
     cursor: pointer;
     color: white;
+}
+
+.FormContainer button:hover {
+    opacity: 1.0;
 }
 
 .FormSubmit {

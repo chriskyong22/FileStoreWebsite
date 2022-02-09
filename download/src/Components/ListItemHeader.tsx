@@ -16,24 +16,27 @@ export const ListItemHeader: React.FC<ListItemHeaderProps> = ({title, descriptio
             getFile(hash, originalName);
         }
     }
-    
+
     return (
         <div className="ListItemHeader">
             <div>
-                <h2>
+                <h2 className="ListItemHeaderTitle">
                     {title}
                 </h2>
             </div>
             <div>
                 {description}
             </div>
+            <div className="SmallFont">
+                {originalName}
+            </div>
             <div>
-                <button onClick={downloadFile(hash, originalName)}>
+                <button 
+                    className="ListItemHeaderButton"
+                    onClick={downloadFile(hash, originalName)}
+                >
                     Download
                 </button>
-                <div>
-                    {originalName}
-                </div>
             </div>
         </div>
     )

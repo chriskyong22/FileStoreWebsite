@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { fileURLToPath } from "url";
 import { FilesModel } from "../Models/FileModel"
-import { uploadFile } from "../Services/Fetch";
+import { getAllFiles, uploadFile } from "../Services/Fetch";
 import { ToastType, ToastContainer } from "./ToastContainer";
 
 interface FormProps {
@@ -37,6 +36,11 @@ export const Form: React.FC<FormProps> = ({ setFiles, setOpen }) => {
                 file: input.file
             }).then((answer) => {
                 console.log(answer);
+                setTimeout(() => {
+                    getAllFiles().then((result) => {
+                        setTimeout(() => setFiles(result), 2000);
+                    })
+                })
             })
         }
     }

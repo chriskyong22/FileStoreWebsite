@@ -1,24 +1,50 @@
+.SmallFont {
+  font-size: 0.75rem;
+}
+
 .ListContainer {
   display: flex;
   flex-direction: row;
   gap: 0.15rem;
   box-sizing: border-box;
+  flex-wrap: wrap;
 }
 
 .ListItemContainer {
   flex: 0 0 33%;
+  max-width: 300px;
   display: flex;
   flex-direction: row;
   gap: 0.15rem;
   box-sizing: border-box;
   overflow: auto;
-  background-color: #eb7272;
+  padding: 0.75rem;
+  border: 3px solid #f1f1f1;
 }
 
 .ListItemHeader {
   display: flex;
   flex-direction: column;
   gap: 0.15rem;
+}
+
+.ListItemHeaderTitle {
+  color: #da4545;
+}
+
+.ListItemHeaderButton {
+  border: none;
+  outline: none;
+  width: 100%;
+  background-color: #04AA6D;
+  opacity: 0.8;
+  box-sizing: border-box;
+  padding: 0.25rem 0.5rem;
+  color: white;
+}
+
+.ListItemHeaderButton:hover {
+  opacity: 1;
 }
 
 .ListItemFooter {
@@ -115,6 +141,10 @@
   opacity: 0.8;
   cursor: pointer;
   color: white;
+}
+
+.FormContainer button:hover {
+  opacity: 1;
 }
 
 .FormSubmit {
