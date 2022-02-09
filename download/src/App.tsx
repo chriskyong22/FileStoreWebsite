@@ -12,6 +12,7 @@ function App() {
     <div className="App">
       <List
         setFiles={setFiles}
+        files={files}
       />
       <FormPopup 
         setFiles={setFiles}

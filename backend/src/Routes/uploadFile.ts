@@ -2,10 +2,21 @@ import express from "express";
 import multer from 'multer'
 import { getFileHash } from "../Utilities/helper"
 import { getFilePath, storeInDB } from "../Services/DB"
-import fs from "fs/promises";
+import fs from "fs/promises"
+import path from 'path'
 
 const router: express.Router = express.Router();
-const uploadPath = multer({dest: 'files\\'})
+
+const storage = multer.diskStorage({
+  destination: function (_req, _file, cb) {
+    cb(null, 'files\\')
+  },
+  filename: function (_req, file, cb) {
+    cb(null, Date.now() + path.extname(file.originalname)) //Appending extension
+  }
+})
+
+const uploadPath = multer({ storage: storage });
 
 router.post('/', uploadPath.single('file'), async (req: express.Request, res: express.Response, _next: express.NextFunction) => {
     const title = req.body.title;

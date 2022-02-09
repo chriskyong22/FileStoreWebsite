@@ -5,7 +5,7 @@ const BACKEND_BASEURL = 'http://localhost:3001'
 
 
 export const getAllFiles = () => {
-    let getAllObjectsEndpoint = `${BACKEND_BASEURL}/objects`
+    let getAllObjectsEndpoint = `${BACKEND_BASEURL}/getFile`
     return axios.get(getAllObjectsEndpoint, {
         responseType: 'json'
     }).then((response) => {
@@ -16,15 +16,17 @@ export const getAllFiles = () => {
 }
 
 
-export const getFile = (id: string, title: string) => {
-    let getFileEndpoint = `${BACKEND_BASEURL}/getFile/id`
-    return axios.get(getFileEndpoint).then((response) => {
+export const getFile = (hash: string, title: string) => {
+    let getFileEndpoint = `${BACKEND_BASEURL}/getFile/hash/${hash}`
+    
+    return axios.get(getFileEndpoint, {responseType: 'arraybuffer'}).then((response) => {
         const url = URL.createObjectURL(new Blob([response.data]));
         const anchor = document.createElement('a');
         anchor.setAttribute('href', url);
         anchor.setAttribute('download', title);
         anchor.click();
         URL.revokeObjectURL(url);
+        anchor.remove();
     })
 }
 

@@ -19,6 +19,7 @@ $font-color: black;
     @include Flex-Container();
     box-sizing: border-box;
     overflow: auto;
+    background-color: rgb(235, 114, 114);
 }
 
 .ListItemHeader {

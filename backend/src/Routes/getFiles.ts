@@ -27,16 +27,14 @@ router.get('/hash/:hash', (req, res) => {
         getFilePath(req.params.hash).then((filePath) => {
             if (filePath) {
                 const BASEPATH = __dirname + "/../../files/";
-                let options = {
-                    root: path.join(BASEPATH)
-                }
-                res.sendFile(filePath['path'], options, (error) => {
+                res.download(BASEPATH + filePath['path'], (error) => {
                     if (error) {
                         console.error(error);
                     } else {
-                        console.log("Sending");
+                        console.log(`Sending ${BASEPATH + filePath['path']}`);
                     }
                 })
+
             } else {
                 res.sendStatus(404);
             }

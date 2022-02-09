@@ -12,6 +12,7 @@
   gap: 0.15rem;
   box-sizing: border-box;
   overflow: auto;
+  background-color: #eb7272;
 }
 
 .ListItemHeader {

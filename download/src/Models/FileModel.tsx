@@ -1,7 +1,7 @@
 export interface FileModel {
     title: string;
     description: string;
-    original_name: string;
+    originalName: string;
     hash: string;
     id: string;
 }
